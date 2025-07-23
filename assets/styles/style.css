@@ -23,8 +23,44 @@ span > span.f1-title {
 }
 
 .back-title {
+    transition: opacity 0.1s ease-out;
     position: absolute;
-    z-index: -1;
+    opacity: 0;
+    z-index: 0;
+    /* height: 40px; */
+    height: 0;
+    width: 250px;
+    background-image: linear-gradient(to top, #ee0000, #ee0000, #9d0000, transparent);
+    border-radius: 10px 10px 0px 0px;
+    top: 50%;
+    transform: translateY(-60%);
+}
+
+.back-title.active {
+    height: 40px;
+    opacity: 1;
+}
+
+nav > aside:first-of-type {
+    left: 0.5px;
+}
+
+nav > aside:last-of-type {
+    right: -0.5px;
+}
+
+.back-title.active::before {
+    transition: position 0.1s ease-out;
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 2.5px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(231, 231, 231);
+    transition: height 0.2s ease-out;
+    text-decoration: none;
 }
 
 header {
@@ -36,7 +72,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     h1 {
         width: 500px;
         justify-content: center;
@@ -48,25 +84,26 @@ header {
         }
     }
     nav {
+        font-weight: bold;
         position: relative;
         display: flex;
         align-items: center;
         gap: 5px;
         > div {
+            z-index: 1;
             position: relative;
             cursor: pointer;
-            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 40px;
-            width: 175px;
+            width: 250px;
         }
-        > div > span::before {
+        /* > div > span::before {
             position: absolute;
             display: block;
             content: "";
-            width: 95%;
+            width: 100%;
             height: 0px;
             bottom: 0;
             left: 50%;
@@ -76,14 +113,24 @@ header {
             text-decoration: none;
         }
         > div:hover > span::before {
-            height: 2px;
-        }
+            height: 2.5px;
+        } */
     }
 }
 
 main {
     display: flex;
     flex-direction: row;
+}
+
+.drivers.active,
+.constructors.active {
+    display: block;
+}
+
+.drivers,
+.constructors {
+    display: none;
 }
 
 ol {
