@@ -1,1 +1,153 @@
 @charset "utf8";
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+}
+
+html,
+body {
+    min-height: 100vh;
+    width: 100%;
+    font-family: "formula1";
+}
+
+span.f1-title {
+    color: #ee0000;
+}
+
+span > span.f1-title {
+    margin-right: 5px;
+}
+
+.back-title {
+    position: absolute;
+    z-index: -1;
+}
+
+header {
+    font-family: "formula1";
+    width: 100%;
+    background-color: rgb(13, 16, 23);
+    color: rgb(231, 231, 231);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    h1 {
+        width: 500px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        lower {
+            font-size: 0.7em;
+        }
+    }
+    nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        > div {
+            position: relative;
+            cursor: pointer;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 175px;
+        }
+        > div > span::before {
+            position: absolute;
+            display: block;
+            content: "";
+            width: 95%;
+            height: 0px;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(231, 231, 231);
+            transition: height 0.2s ease-out;
+            text-decoration: none;
+        }
+        > div:hover > span::before {
+            height: 2px;
+        }
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+ol {
+    list-style-type: none;
+}
+
+footer {
+    position: relative;
+    font-weight: bold;
+    font-family: "Titillium Web";
+    width: 100%;
+    background-color: rgb(13, 16, 23);
+    color: rgb(231, 231, 231);
+    padding: 30px 30px;
+    #center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.1em;
+        font-weight: normal;
+    }
+    > div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        border-top: 1.5px solid gray;
+        border-bottom: 1.5px solid gray;
+        > div,
+        > a {
+            color: rgb(231, 231, 231);
+            transition: color 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            > span {
+                font-size: 1.3em;
+                display: flex;
+                align-items: baseline;
+                > lower {
+                    font-size: 0.7em;
+                    margin-left: 3px;
+                }
+            }
+            > a > i {
+                color: rgb(231, 231, 231);
+                font-size: 1.65em;
+                transition: color 0.2s;
+                cursor: pointer;
+            }
+            > a > i:hover {
+                color: rgba(231, 231, 231, 0.705);
+            }
+        }
+        > a:hover {
+            color: rgba(231, 231, 231, 0.705);
+        }
+        img {
+            width: 96px;
+        }
+    }
+}
