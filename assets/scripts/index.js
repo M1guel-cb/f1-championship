@@ -1,7 +1,9 @@
-import { equipesF1 } from "./api.js";
+import { equipesF1 } from "./equipes&pilotos.js";
+import { pistasF1 } from "./pistas.js";
 
 const f1Title = document.querySelector("header > h1");
 const tracksSec = document.querySelector("section.tracks");
+const grid = document.querySelector("section.tracks > .grid");
 
 const constructorsSec = document.querySelector("section.constructors");
 const constructorsOl = document.querySelector("section.constructors > ol");
@@ -20,6 +22,53 @@ let i = 0;
 var clickedP,
     clickedC = false;
 var clickedT = true;
+
+pistasF1.forEach((pista) => {
+    let nome = "";
+    for (let i = 3; i < pista.gp.length; i++) {
+        nome = nome + pista.gp[i];
+    }
+    nome = nome.toLowerCase().replace(" ", "-");
+
+    const container = document.createElement("div");
+    container.classList.add("container");
+
+    const pistaDiv = document.createElement("div");
+    pistaDiv.classList.add("pista");
+
+    const pistaImg = document.createElement("img");
+    pistaImg.classList.add("pista-img");
+    pistaImg.src = `assets/images/pistas/${nome}.png`;
+
+    const info = document.createElement("div");
+    info.classList.add("info");
+
+    const nomePista = document.createElement("span");
+    nomePista.classList.add("nome-pista");
+    nomePista.innerHTML = `GP ${pista.gp}`
+
+    const dataPista = document.createElement("span");
+    dataPista.classList.add("data-pista");
+    dataPista.innerHTML = `${pista.data}`
+
+    const bandeira = document.createElement("img");
+    bandeira.src = `https://flagsapi.com/${pista.pais}/flat/64.png`;
+    
+    grid.appendChild(container);
+    container.appendChild(pistaDiv);
+    container.appendChild(info);
+    pistaDiv.appendChild(pistaImg);
+    info.appendChild(nomePista);
+    info.appendChild(dataPista);
+    nomePista.appendChild(bandeira);
+
+    if (pista.sprint) {
+        const sprint = document.createElement("img")
+        sprint.src = `assets/images/sprint.png`
+        sprint.classList.add("sprint")
+        pistaDiv.appendChild(sprint)
+    }
+});
 
 f1Title.addEventListener("mousedown", () => {
     clickedP = false;
@@ -123,7 +172,7 @@ equipesF1.forEach((equipe) => {
     //Cria a <img> da bandeira
     const logo = document.createElement("img");
     const bandeira = document.createElement("img");
-    bandeira.src = `https://flagsapi.com/${equipe.nacionalidade}/flat/32.png`;
+    bandeira.src = `https://flagsapi.com/${equipe.nacionalidade}/flat/64.png`;
     bandeira.classList.add("bandeira");
 
     //Aplica tudo na ordem correta
