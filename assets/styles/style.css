@@ -18,55 +18,6 @@ body {
     flex-direction: column;
 }
 
-span.f1-title {
-    color: #ee0000;
-}
-
-span > span.f1-title {
-    margin-right: 5px;
-}
-
-.back-title {
-    transition: opacity 0.1s ease-out;
-    position: absolute;
-    opacity: 0;
-    z-index: 0;
-    /* height: 40px; */
-    height: 0;
-    width: 250px;
-    background-image: linear-gradient(to top, #ee0000, #ee0000, #9d0000, transparent);
-    border-radius: 10px 10px 0px 0px;
-    top: 50%;
-    transform: translateY(-60%);
-}
-
-.back-title.active {
-    height: 40px;
-    opacity: 1;
-}
-
-nav > aside:first-of-type {
-    left: 0.5px;
-}
-
-nav > aside:last-of-type {
-    right: -0.5px;
-}
-
-.back-title.active::before {
-    transition: position 0.1s ease-out;
-    position: absolute;
-    display: block;
-    content: "";
-    width: 100%;
-    height: 2.5px;
-    bottom: 0;
-    left: 0;
-    background-color: rgb(231, 231, 231);
-    transition: height 0.2s ease-out;
-    text-decoration: none;
-}
-
 header {
     font-family: "formula1";
     width: 100%;
@@ -78,6 +29,7 @@ header {
     align-items: center;
     gap: 15px;
     h1 {
+        font-size: 2.2em;
         width: 500px;
         justify-content: center;
         display: flex;
@@ -86,6 +38,18 @@ header {
         lower {
             font-size: 0.7em;
         }
+
+        span.f1-title {
+            color: #ee0000;
+        }
+
+        span > span.f1-title {
+            margin-right: 5px;
+        }
+    }
+    h1:hover {
+        color: rgba(231, 231, 231, 0.705);
+        cursor: pointer;
     }
     nav {
         font-weight: bold;
@@ -103,143 +67,174 @@ header {
             height: 40px;
             width: 250px;
         }
-        /* > div > span::before {
+
+        .back-title.active::before {
+            transition: position 0.1s ease-out;
             position: absolute;
             display: block;
             content: "";
             width: 100%;
-            height: 0px;
+            height: 2.5px;
             bottom: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            left: 0;
             background-color: rgb(231, 231, 231);
             transition: height 0.2s ease-out;
             text-decoration: none;
         }
-        > div:hover > span::before {
-            height: 2.5px;
-        } */
+
+        .back-title {
+            transition: opacity 0.1s ease-out;
+            position: absolute;
+            opacity: 0;
+            z-index: 0;
+            /* height: 40px; */
+            height: 0;
+            width: 250px;
+            background-image: linear-gradient(to top, #ee0000, #ee0000, #9d0000, transparent);
+            border-radius: 10px 10px 0px 0px;
+            top: 50%;
+            transform: translateY(-60%);
+        }
+
+        .back-title.active {
+            height: 40px;
+            opacity: 1;
+        }
+
+        aside:first-of-type {
+            left: 0.5px;
+        }
+
+        aside:last-of-type {
+            right: -0.5px;
+        }
     }
 }
 
 main {
     display: flex;
     flex-direction: row;
-    background-color: rgb(194, 204, 255);
-    /* width: 1028px; */
-    padding: 30px;
-}
-
-.drivers.active,
-.constructors.active {
-    display: block;
-}
-
-.drivers,
-.constructors {
-    display: none;
-}
-
-ol {
-    list-style-type: none;
-    counter-reset: counter1;
-}
-
-ol {
-    display: flex;
-    flex-direction: column;
-    gap: 7.5px;
-    padding: 0;
-
-    width: 650px;
-    li {
-        min-height: 32px;
-        padding: 5px 20px;
-
-        counter-increment: counter1;
-
+    background-color: #050609;
+    width: 100%;
+    .drivers.active,
+    .constructors.active,
+    .tracks.active {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #3d3d3d;
+    }
 
-        color: white;
+    .drivers,
+    .constructors,
+    .tracks {
+        display: none;
+    }
 
-        border-radius: 0 7.5px 7.5px 0;
-        div {
-            position: relative;
+    .drivers.active,
+    .constructors.active {
+        ol {
+            list-style-type: none;
+            counter-reset: counter1;
+        }
+
+        ol {
             display: flex;
-            align-items: center;
-            gap: 20px;
-            width: 400px;
-            img {
-                height: 28px;
-            }
-            span {
+            flex-direction: column;
+            gap: 7.5px;
+            padding: 0;
+
+            width: 650px;
+            li {
+                min-height: 32px;
+                padding: 5px 20px;
+
+                counter-increment: counter1;
+
                 display: flex;
                 align-items: center;
-                gap: 5px;
+                justify-content: space-between;
+
+                color: white;
+
+                border-radius: 0 7.5px 7.5px 0;
+                div {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    width: 400px;
+                    img {
+                        height: 28px;
+                    }
+                    span {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+                }
+                div::before {
+                    content: counter(counter1) "º";
+                    width: 32px;
+                    text-align: right;
+                    font-weight: bold;
+                }
+            }
+
+            .bandeira {
+                height: 1.5em;
+            }
+
+            li.mclaren {
+                background-color: #fe800f;
+                color: white;
+            }
+
+            li.ferrari {
+                background-color: #e4051a;
+                color: white;
+            }
+
+            li.mercedes {
+                background-color: #02dbd3;
+                color: rgb(61, 61, 61);
+            }
+
+            li.red-bull {
+                background-color: #0a1c40;
+                color: white;
+            }
+
+            li.racing-bulls {
+                background-color: #1335cd;
+                color: white;
+            }
+
+            li.williams {
+                background-color: #1c93c2;
+                color: white;
+            }
+
+            li.aston-martin {
+                background-color: #016660;
+                color: white;
+            }
+
+            li.alpine {
+                background-color: #f45a7b;
+                color: white;
+            }
+
+            li.haas {
+                background-color: #cdc6c8;
+                color: #e4051a;
+            }
+
+            li.sauber {
+                background-color: #05e305;
+                color: black;
             }
         }
-        div::before {
-            content: counter(counter1) "º";
-            width: 32px;
-            text-align: right;
-            font-weight: bold;
-        }
-    }
-
-    .bandeira {
-        height: 1.5em;
-    }
-
-    li.mclaren {
-        background-color: #fe800f;
-        color: white;
-    }
-
-    li.ferrari {
-        background-color: #e4051a;
-        color: white;
-    }
-
-    li.mercedes {
-        background-color: #02dbd3;
-        color: rgb(61, 61, 61);
-    }
-
-    li.red-bull {
-        background-color: #0a1c40;
-        color: white;
-    }
-
-    li.racing-bulls {
-        background-color: #1335cd;
-        color: white;
-    }
-
-    li.williams {
-        background-color: #1c93c2;
-        color: white;
-    }
-
-    li.aston-martin {
-        background-color: #016660;
-        color: white;
-    }
-
-    li.alpine {
-        background-color: #f45a7b;
-        color: white;
-    }
-
-    li.haas {
-        background-color: #cdc6c8;
-        color: #e4051a;
-    }
-
-    li.sauber {
-        background-color: #05e305;
-        color: black;
     }
 }
 

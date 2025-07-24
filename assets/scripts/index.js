@@ -1,5 +1,8 @@
 import { equipesF1 } from "./api.js";
 
+const f1Title = document.querySelector("header > h1");
+const tracksSec = document.querySelector("section.tracks");
+
 const constructorsSec = document.querySelector("section.constructors");
 const constructorsOl = document.querySelector("section.constructors > ol");
 const constructorHead = document.querySelectorAll("header > nav > div")[0];
@@ -9,12 +12,25 @@ const driversSec = document.querySelector("section.drivers");
 const driversOl = document.querySelector("section.drivers > ol");
 const driverHead = document.querySelectorAll("header > nav > div")[1];
 const driverBack = document.querySelectorAll(".back-title")[1];
+
 let listaPilotos = [];
 let c = 0;
 let i = 0;
 
 var clickedP,
     clickedC = false;
+var clickedT = true;
+
+f1Title.addEventListener("mousedown", () => {
+    clickedP = false;
+    clickedC = false;
+    clickedT = true;
+    constructorBack.classList.remove("active");
+    constructorsSec.classList.remove("active");
+    driverBack.classList.remove("active");
+    driversSec.classList.remove("active");
+    tracksSec.classList.add("active");
+});
 
 //Quando o mouse passa por cima da navegação do campeonato de construtores, ativa a tag de ativação
 constructorHead.addEventListener("mouseover", navConst);
@@ -23,6 +39,7 @@ function navConst() {
         constructorBack.classList.add("active");
         if (!clickedP) {
             constructorsSec.classList.add("active");
+            tracksSec.classList.remove("active");
         }
     }
 }
@@ -33,6 +50,9 @@ function mouseOutConst() {
     if (!clickedC) {
         constructorBack.classList.remove("active");
         constructorsSec.classList.remove("active");
+        if (clickedT) {
+            tracksSec.classList.add("active");
+        }
     }
 }
 
@@ -41,6 +61,8 @@ constructorHead.addEventListener("mousedown", mouseCheckConst);
 function mouseCheckConst() {
     clickedC = true;
     clickedP = false;
+    clickedT = false;
+    tracksSec.classList.remove("active");
     mouseOutPilot();
     navConst();
 }
@@ -52,6 +74,7 @@ function navPilot() {
         driverBack.classList.add("active");
         if (!clickedC) {
             driversSec.classList.add("active");
+            tracksSec.classList.remove("active");
         }
     }
 }
@@ -62,6 +85,9 @@ function mouseOutPilot() {
     if (!clickedP) {
         driverBack.classList.remove("active");
         driversSec.classList.remove("active");
+        if (clickedT) {
+            tracksSec.classList.add("active");
+        }
     }
 }
 
@@ -70,6 +96,8 @@ driverHead.addEventListener("mousedown", mouseCheckPilot);
 function mouseCheckPilot() {
     clickedP = true;
     clickedC = false;
+    clickedT = false;
+    tracksSec.classList.remove("active");
     mouseOutConst();
     navPilot();
 }
@@ -88,7 +116,9 @@ equipesF1.forEach((equipe) => {
 
     //Cria o <span> dos pontos do equipe
     const equipePontos = document.createElement("span");
-    equipePontos.innerHTML = `<strong>${equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0}</strong> points`;
+    equipePontos.innerHTML = `<strong>${
+        equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0
+    }</strong> points`;
 
     //Cria a <img> da bandeira
     const logo = document.createElement("img");
@@ -176,7 +206,7 @@ listaPilotos.forEach((piloto) => {
 
     //Cria o <span> com o nome do piloto
     const pilotoNome = document.createElement("span");
-    const nome = piloto.nome.split(" ")
+    const nome = piloto.nome.split(" ");
     pilotoNome.innerHTML = `${nome[0]} <strong>${nome[1]}</strong> - <strong>${piloto.numero}</strong>`;
 
     //Cria o <span> dos pontos do piloto
@@ -187,7 +217,7 @@ listaPilotos.forEach((piloto) => {
     const logo = document.createElement("img");
     const bandeira = document.createElement("img");
     bandeira.src = `https://flagsapi.com/${piloto.nacionalidade}/flat/64.png`;
-    bandeira.classList.add("bandeira")
+    bandeira.classList.add("bandeira");
 
     //Aplica tudo na ordem correta
     driversOl.appendChild(itemD);
