@@ -12,6 +12,10 @@ body {
     min-height: 100vh;
     width: 100%;
     font-family: "formula1";
+    background-color: #060709;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 span.f1-title {
@@ -121,6 +125,9 @@ header {
 main {
     display: flex;
     flex-direction: row;
+    background-color: rgb(194, 204, 255);
+    /* width: 1028px; */
+    padding: 30px;
 }
 
 .drivers.active,
@@ -135,6 +142,105 @@ main {
 
 ol {
     list-style-type: none;
+    counter-reset: counter1;
+}
+
+ol {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    padding: 0;
+
+    width: 600px;
+    li {
+        min-height: 32px;
+        padding: 5px 20px;
+
+        counter-increment: counter1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        color: white;
+
+        border-radius: 0 7.5px 7.5px 0;
+        div {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 400px;
+            img {
+                height: 28px;
+            }
+            span {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+        }
+        div::before {
+            content: counter(counter1) "º";
+            width: 32px;
+            text-align: right;
+            font-weight: bold;
+        }
+    }
+
+    .bandeira {
+        height: 1.5em;
+    }
+
+    li.mclaren {
+        background-color: #fe800f;
+        color: white;
+    }
+
+    li.ferrari {
+        background-color: #e4051a;
+        color: white;
+    }
+
+    li.mercedes {
+        background-color: #02dbd3;
+        color: rgb(61, 61, 61);
+    }
+
+    li.red-bull {
+        background-color: #0a1c40;
+        color: white;
+    }
+
+    li.racing-bulls {
+        background-color: #1335cd;
+        color: white;
+    }
+
+    li.williams {
+        background-color: #1c93c2;
+        color: white;
+    }
+
+    li.aston-martin {
+        background-color: #016660;
+        color: white;
+    }
+
+    li.alpine {
+        background-color: #f45a7b;
+        color: white;
+    }
+
+    li.haas {
+        background-color: #cdc6c8;
+        color: #e4051a;
+    }
+
+    li.sauber {
+        background-color: #05e305;
+        color: black;
+    }
 }
 
 footer {

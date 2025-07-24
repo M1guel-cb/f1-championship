@@ -23,7 +23,7 @@ export const equipesF1 = [
         pontuacao_equipe: 210,
         pilotos: [
             { nome: "George Russell", numero: 63, nacionalidade: "GB", pontuacao: 147 },
-            { nome: "Andrea Kimi Antonelli", numero: 12, nacionalidade: "IT", pontuacao: 63 },
+            { nome: "Kimi Antonelli", numero: 12, nacionalidade: "IT", pontuacao: 63 },
         ],
     },
     {
@@ -49,8 +49,8 @@ export const equipesF1 = [
         nacionalidade: "CH",
         pontuacao_equipe: 41,
         pilotos: [
-            { nome: "Nico Hülkenberg", numero: 10, nacionalidade: "DE", pontuacao: 37 },
-            { nome: "Gabriel Bortoleto", numero: 2, nacionalidade: "BR", pontuacao: 4 },
+            { nome: "Nico Hülkenberg", numero: 27, nacionalidade: "DE", pontuacao: 37 },
+            { nome: "Gabriel Bortoleto", numero: 5, nacionalidade: "BR", pontuacao: 4 },
         ],
     },
     {
@@ -86,7 +86,7 @@ export const equipesF1 = [
         pontuacao_equipe: 19,
         pilotos: [
             { nome: "Pierre Gasly", numero: 10, nacionalidade: "FR", pontuacao: 19 },
-            { nome: "Franco Colapinto", numero: 25, nacionalidade: "AR", pontuacao: null },
+            { nome: "Franco Colapinto", numero: 43, nacionalidade: "AR", pontuacao: null },
         ],
     },
 ];

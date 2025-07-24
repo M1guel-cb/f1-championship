@@ -41,8 +41,8 @@ constructorHead.addEventListener("mousedown", mouseCheckConst);
 function mouseCheckConst() {
     clickedC = true;
     clickedP = false;
-    mouseOutPilot()
-    navConst()
+    mouseOutPilot();
+    navConst();
 }
 
 //Quando o mouse passa por cima da navegação do campeonato de construtores, ativa a tag de ativação
@@ -70,8 +70,8 @@ driverHead.addEventListener("mousedown", mouseCheckPilot);
 function mouseCheckPilot() {
     clickedP = true;
     clickedC = false;
-    mouseOutConst()
-    navPilot()
+    mouseOutConst();
+    navPilot();
 }
 
 //Varre a lista de equipes
@@ -84,22 +84,68 @@ equipesF1.forEach((equipe) => {
 
     //Cria o <span> com o nome do equipe
     const equipeNome = document.createElement("span");
-    equipeNome.innerHTML = `${equipe.nome}`;
+    equipeNome.innerHTML = `<strong>${equipe.nome}</strong>`;
 
     //Cria o <span> dos pontos do equipe
     const equipePontos = document.createElement("span");
-    equipePontos.innerHTML = `${equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0} points`;
+    equipePontos.innerHTML = `<strong>${equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0}</strong> points`;
 
     //Cria a <img> da bandeira
+    const logo = document.createElement("img");
     const bandeira = document.createElement("img");
     bandeira.src = `https://flagsapi.com/${equipe.nacionalidade}/flat/32.png`;
+    bandeira.classList.add("bandeira");
 
     //Aplica tudo na ordem correta
     constructorsOl.appendChild(itemC);
     itemC.appendChild(divisao);
-    divisao.appendChild(bandeira);
+    divisao.appendChild(logo);
     divisao.appendChild(equipeNome);
-    divisao.appendChild(equipePontos);
+    equipeNome.appendChild(bandeira);
+    itemC.appendChild(equipePontos);
+
+    switch (equipe.nome) {
+        case "McLaren":
+            itemC.classList.add("mclaren");
+            logo.src = `assets/images/logo-equipes/mclaren-512.png`;
+            break;
+        case "Ferrari":
+            itemC.classList.add("ferrari");
+            logo.src = `assets/images/logo-equipes/ferrari-512.png`;
+            break;
+        case "Mercedes":
+            itemC.classList.add("mercedes");
+            logo.src = `assets/images/logo-equipes/mercedes-512.png`;
+            break;
+        case "Red Bull Racing":
+            itemC.classList.add("red-bull");
+            logo.src = `assets/images/logo-equipes/red-bull-512.png`;
+            break;
+        case "Williams Racing":
+            itemC.classList.add("williams");
+            logo.src = `assets/images/logo-equipes/williams-512.png`;
+            break;
+        case "Aston Martin":
+            itemC.classList.add("aston-martin");
+            logo.src = `assets/images/logo-equipes/aston-martin-512.png`;
+            break;
+        case "Alpine":
+            itemC.classList.add("alpine");
+            logo.src = `assets/images/logo-equipes/alpine-512.png`;
+            break;
+        case "Haas":
+            itemC.classList.add("haas");
+            logo.src = `assets/images/logo-equipes/haas-512.png`;
+            break;
+        case "Sauber":
+            itemC.classList.add("sauber");
+            logo.src = `assets/images/logo-equipes/sauber-512.png`;
+            break;
+        case "Racing Bulls":
+            itemC.classList.add("racing-bulls");
+            logo.src = `assets/images/logo-equipes/racing-bulls-512.png`;
+            break;
+    }
 
     //Varre os pilotos de cada equipe
     equipe.pilotos.forEach((piloto) => {
@@ -130,20 +176,74 @@ listaPilotos.forEach((piloto) => {
 
     //Cria o <span> com o nome do piloto
     const pilotoNome = document.createElement("span");
-    pilotoNome.innerHTML = `${piloto.nome}`;
+    const nome = piloto.nome.split(" ")
+    pilotoNome.innerHTML = `${nome[0]} <strong>${nome[1]}</strong> - <strong>${piloto.numero}</strong>`;
 
     //Cria o <span> dos pontos do piloto
     const pilotoPontos = document.createElement("span");
-    pilotoPontos.innerHTML = `${piloto.pontuacao != null ? piloto.pontuacao : 0} points`;
+    pilotoPontos.innerHTML = `<strong>${piloto.pontuacao != null ? piloto.pontuacao : 0}</strong> points`;
 
     //Cria a <img> da bandeira
+    const logo = document.createElement("img");
     const bandeira = document.createElement("img");
-    bandeira.src = `https://flagsapi.com/${piloto.nacionalidade}/flat/32.png`;
+    bandeira.src = `https://flagsapi.com/${piloto.nacionalidade}/flat/64.png`;
+    bandeira.classList.add("bandeira")
 
     //Aplica tudo na ordem correta
     driversOl.appendChild(itemD);
     itemD.appendChild(divisao);
-    divisao.appendChild(bandeira);
+    divisao.appendChild(logo);
     divisao.appendChild(pilotoNome);
-    divisao.appendChild(pilotoPontos);
+    pilotoNome.appendChild(bandeira);
+    itemD.appendChild(pilotoPontos);
+
+    let equipePiloto;
+    equipesF1.forEach((equipe) => {
+        if (piloto.nome == equipe.pilotos[0].nome || piloto.nome == equipe.pilotos[1].nome) {
+            equipePiloto = equipe.nome;
+        }
+    });
+
+    switch (equipePiloto) {
+        case "McLaren":
+            itemD.classList.add("mclaren");
+            logo.src = `assets/images/logo-equipes/mclaren-512.png`;
+            break;
+        case "Ferrari":
+            itemD.classList.add("ferrari");
+            logo.src = `assets/images/logo-equipes/ferrari-512.png`;
+            break;
+        case "Mercedes":
+            itemD.classList.add("mercedes");
+            logo.src = `assets/images/logo-equipes/mercedes-512.png`;
+            break;
+        case "Red Bull Racing":
+            itemD.classList.add("red-bull");
+            logo.src = `assets/images/logo-equipes/red-bull-512.png`;
+            break;
+        case "Williams Racing":
+            itemD.classList.add("williams");
+            logo.src = `assets/images/logo-equipes/williams-512.png`;
+            break;
+        case "Aston Martin":
+            itemD.classList.add("aston-martin");
+            logo.src = `assets/images/logo-equipes/aston-martin-512.png`;
+            break;
+        case "Alpine":
+            itemD.classList.add("alpine");
+            logo.src = `assets/images/logo-equipes/alpine-512.png`;
+            break;
+        case "Haas":
+            itemD.classList.add("haas");
+            logo.src = `assets/images/logo-equipes/haas-512.png`;
+            break;
+        case "Sauber":
+            itemD.classList.add("sauber");
+            logo.src = `assets/images/logo-equipes/sauber-512.png`;
+            break;
+        case "Racing Bulls":
+            itemD.classList.add("racing-bulls");
+            logo.src = `assets/images/logo-equipes/racing-bulls-512.png`;
+            break;
+    }
 });
