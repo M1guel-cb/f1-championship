@@ -26,7 +26,7 @@ export const pistasF1 = [
     {
         gp: "de Jeddah",
         data: "18 - 10/04",
-        pais: "AU",
+        pais: "SA",
         sprint: false,
     },
     {
@@ -72,7 +72,7 @@ export const pistasF1 = [
         sprint: false,
     },
     {
-        gp: "de Spa-Fancorchamps",
+        gp: "de Spa",
         data: "25 - 27/07",
         pais: "BE",
         sprint: true,

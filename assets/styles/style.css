@@ -256,7 +256,7 @@ main {
                 padding: 8px;
                 border-radius: 12px;
                 border: 6px solid #fff;
-                width: 18.75%;
+                width: 285px;
                 height: 275px;
                 .pista {
                     position: relative;
@@ -268,7 +268,7 @@ main {
                     img.pista-img {
                         width: 80%;
                     }
-                    img.sprint{
+                    img.sprint {
                         position: absolute;
                         top: 2%;
                         left: 2%;
@@ -280,25 +280,30 @@ main {
                         display: flex;
                         align-items: center;
                         gap: 5px;
-                        height: 40px;
+                        height: 36px;
                         img {
                             height: 28px;
                         }
                     }
                     span.nome-pista {
                         padding: 27.5px 0 20px 0;
+                        display: flex;
+                        justify-content: space-between;
                     }
                     span.nome-pista::before {
                         display: flex;
                         content: counter(pista) "º";
                         background-color: #e4051a;
-                        width: 40px;
-                        height: 40px;
+                        width: 36px;
+                        height: 36px;
                         justify-content: center;
                         align-items: center;
                     }
                 }
             }
+        }
+        .grid.admin {
+            flex-direction: column;
         }
     }
 }

@@ -1,5 +1,6 @@
 import { equipesF1 } from "./equipes&pilotos.js";
 import { pistasF1 } from "./pistas.js";
+import { paises } from "./paises.js";
 
 const f1Title = document.querySelector("header > h1");
 const tracksSec = document.querySelector("section.tracks");
@@ -33,6 +34,9 @@ pistasF1.forEach((pista) => {
     const container = document.createElement("div");
     container.classList.add("container");
 
+    const auxiliar = document.createElement("div");
+    auxiliar.classList.add("auxiliar");
+
     const pistaDiv = document.createElement("div");
     pistaDiv.classList.add("pista");
 
@@ -45,16 +49,17 @@ pistasF1.forEach((pista) => {
 
     const nomePista = document.createElement("span");
     nomePista.classList.add("nome-pista");
-    nomePista.innerHTML = `GP ${pista.gp}`
+    nomePista.innerHTML = `GP ${pista.gp}`;
 
     const dataPista = document.createElement("span");
     dataPista.classList.add("data-pista");
-    dataPista.innerHTML = `${pista.data}`
+    dataPista.innerHTML = `${pista.data}`;
 
     const bandeira = document.createElement("img");
     bandeira.src = `https://flagsapi.com/${pista.pais}/flat/64.png`;
-    
-    grid.appendChild(container);
+
+    grid.appendChild(auxiliar);
+    auxiliar.appendChild(container);
     container.appendChild(pistaDiv);
     container.appendChild(info);
     pistaDiv.appendChild(pistaImg);
@@ -63,10 +68,58 @@ pistasF1.forEach((pista) => {
     nomePista.appendChild(bandeira);
 
     if (pista.sprint) {
-        const sprint = document.createElement("img")
-        sprint.src = `assets/images/sprint.png`
-        sprint.classList.add("sprint")
-        pistaDiv.appendChild(sprint)
+        const sprint = document.createElement("img");
+        sprint.src = `assets/images/sprint.png`;
+        sprint.classList.add("sprint");
+        pistaDiv.appendChild(sprint);
+    }
+
+    if (grid.classList.contains("admin")) {
+        let pais;
+        const labelGP = document.createElement("label");
+        labelGP.innerText = "GP de: ";
+        labelGP.htmlFor = `input-gp-${nome}`;
+
+        const inputGP = document.createElement("input");
+        inputGP.classList.add(`input-gp`);
+        inputGP.id = `input-gp-${nome}`;
+        inputGP.value = nome;
+
+        const labelPais = document.createElement("label");
+        labelPais.innerText = "País: ";
+        labelPais.htmlFor = `select-pais-${nome}`;
+
+        const selectPais = document.createElement("select");
+        selectPais.classList.add(`select-pais`);
+        selectPais.id = `select-pais-${nome}`;
+
+        paises.forEach((p) => {
+            const option = document.createElement("option");
+            option.value = p.sigla;
+            option.innerHTML = `${p.nome} (${p.sigla})`;
+            if (pista.pais == p.sigla) {
+                pais = p;
+            }
+            selectPais.appendChild(option);
+        });
+        selectPais.value = pais.sigla;
+
+        const labelSprint = document.createElement("label");
+        labelSprint.innerText = "Sprint: ";
+        labelSprint.htmlFor = `btn-sprint-${nome}`;
+
+        const btnSprint = document.createElement("button");
+        btnSprint.classList.add(`btn-sprint`);
+        btnSprint.id = `btn-sprint-${nome}`;
+        const slcSprint = document.createElement("div");
+
+        auxiliar.appendChild(labelGP);
+        auxiliar.appendChild(inputGP);
+        auxiliar.appendChild(labelPais);
+        auxiliar.appendChild(selectPais);
+        auxiliar.appendChild(labelSprint);
+        auxiliar.appendChild(btnSprint);
+        btnSprint.appendChild(slcSprint)
     }
 });
 
@@ -153,77 +206,79 @@ function mouseCheckPilot() {
 
 //Varre a lista de equipes
 equipesF1.forEach((equipe) => {
-    //Cria e coloca a <li>
-    const itemC = document.createElement("li");
+    if (!constructorsSec.classList.contains("admin")) {
+        //Cria e coloca a <li>
+        const itemC = document.createElement("li");
 
-    //Cria uma <div> auxiliar
-    const divisao = document.createElement("div");
+        //Cria uma <div> auxiliar
+        const divisao = document.createElement("div");
 
-    //Cria o <span> com o nome do equipe
-    const equipeNome = document.createElement("span");
-    equipeNome.innerHTML = `<strong>${equipe.nome}</strong>`;
+        //Cria o <span> com o nome do equipe
+        const equipeNome = document.createElement("span");
+        equipeNome.innerHTML = `<strong>${equipe.nome}</strong>`;
 
-    //Cria o <span> dos pontos do equipe
-    const equipePontos = document.createElement("span");
-    equipePontos.innerHTML = `<strong>${
-        equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0
-    }</strong> points`;
+        //Cria o <span> dos pontos do equipe
+        const equipePontos = document.createElement("span");
+        equipePontos.innerHTML = `<strong>${
+            equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0
+        }</strong> points`;
 
-    //Cria a <img> da bandeira
-    const logo = document.createElement("img");
-    const bandeira = document.createElement("img");
-    bandeira.src = `https://flagsapi.com/${equipe.nacionalidade}/flat/64.png`;
-    bandeira.classList.add("bandeira");
+        //Cria a <img> da bandeira
+        const logo = document.createElement("img");
+        const bandeira = document.createElement("img");
+        bandeira.src = `https://flagsapi.com/${equipe.nacionalidade}/flat/64.png`;
+        bandeira.classList.add("bandeira");
 
-    //Aplica tudo na ordem correta
-    constructorsOl.appendChild(itemC);
-    itemC.appendChild(divisao);
-    divisao.appendChild(logo);
-    divisao.appendChild(equipeNome);
-    equipeNome.appendChild(bandeira);
-    itemC.appendChild(equipePontos);
+        //Aplica tudo na ordem correta
+        constructorsOl.appendChild(itemC);
+        itemC.appendChild(divisao);
+        divisao.appendChild(logo);
+        divisao.appendChild(equipeNome);
+        equipeNome.appendChild(bandeira);
+        itemC.appendChild(equipePontos);
 
-    switch (equipe.nome) {
-        case "McLaren":
-            itemC.classList.add("mclaren");
-            logo.src = `assets/images/logo-equipes/mclaren-512.png`;
-            break;
-        case "Ferrari":
-            itemC.classList.add("ferrari");
-            logo.src = `assets/images/logo-equipes/ferrari-512.png`;
-            break;
-        case "Mercedes":
-            itemC.classList.add("mercedes");
-            logo.src = `assets/images/logo-equipes/mercedes-512.png`;
-            break;
-        case "Red Bull Racing":
-            itemC.classList.add("red-bull");
-            logo.src = `assets/images/logo-equipes/red-bull-512.png`;
-            break;
-        case "Williams Racing":
-            itemC.classList.add("williams");
-            logo.src = `assets/images/logo-equipes/williams-512.png`;
-            break;
-        case "Aston Martin":
-            itemC.classList.add("aston-martin");
-            logo.src = `assets/images/logo-equipes/aston-martin-512.png`;
-            break;
-        case "Alpine":
-            itemC.classList.add("alpine");
-            logo.src = `assets/images/logo-equipes/alpine-512.png`;
-            break;
-        case "Haas":
-            itemC.classList.add("haas");
-            logo.src = `assets/images/logo-equipes/haas-512.png`;
-            break;
-        case "Sauber":
-            itemC.classList.add("sauber");
-            logo.src = `assets/images/logo-equipes/sauber-512.png`;
-            break;
-        case "Racing Bulls":
-            itemC.classList.add("racing-bulls");
-            logo.src = `assets/images/logo-equipes/racing-bulls-512.png`;
-            break;
+        switch (equipe.nome) {
+            case "McLaren":
+                itemC.classList.add("mclaren");
+                logo.src = `assets/images/logo-equipes/mclaren-512.png`;
+                break;
+            case "Ferrari":
+                itemC.classList.add("ferrari");
+                logo.src = `assets/images/logo-equipes/ferrari-512.png`;
+                break;
+            case "Mercedes":
+                itemC.classList.add("mercedes");
+                logo.src = `assets/images/logo-equipes/mercedes-512.png`;
+                break;
+            case "Red Bull Racing":
+                itemC.classList.add("red-bull");
+                logo.src = `assets/images/logo-equipes/red-bull-512.png`;
+                break;
+            case "Williams Racing":
+                itemC.classList.add("williams");
+                logo.src = `assets/images/logo-equipes/williams-512.png`;
+                break;
+            case "Aston Martin":
+                itemC.classList.add("aston-martin");
+                logo.src = `assets/images/logo-equipes/aston-martin-512.png`;
+                break;
+            case "Alpine":
+                itemC.classList.add("alpine");
+                logo.src = `assets/images/logo-equipes/alpine-512.png`;
+                break;
+            case "Haas":
+                itemC.classList.add("haas");
+                logo.src = `assets/images/logo-equipes/haas-512.png`;
+                break;
+            case "Sauber":
+                itemC.classList.add("sauber");
+                logo.src = `assets/images/logo-equipes/sauber-512.png`;
+                break;
+            case "Racing Bulls":
+                itemC.classList.add("racing-bulls");
+                logo.src = `assets/images/logo-equipes/racing-bulls-512.png`;
+                break;
+        }
     }
 
     //Varre os pilotos de cada equipe
@@ -247,82 +302,84 @@ equipesF1.forEach((equipe) => {
 
 //Varre a nova lista de pilotos ordenada
 listaPilotos.forEach((piloto) => {
-    //Cria e coloca a <li>
-    const itemD = document.createElement("li");
+    if (!driversSec.classList.contains("admin")) {
+        //Cria e coloca a <li>
+        const itemD = document.createElement("li");
 
-    //Cria uma <div> auxiliar
-    const divisao = document.createElement("div");
+        //Cria uma <div> auxiliar
+        const divisao = document.createElement("div");
 
-    //Cria o <span> com o nome do piloto
-    const pilotoNome = document.createElement("span");
-    const nome = piloto.nome.split(" ");
-    pilotoNome.innerHTML = `${nome[0]} <strong>${nome[1]}</strong> - <strong>${piloto.numero}</strong>`;
+        //Cria o <span> com o nome do piloto
+        const pilotoNome = document.createElement("span");
+        const nome = piloto.nome.split(" ");
+        pilotoNome.innerHTML = `${nome[0]} <strong>${nome[1]}</strong> - <strong>${piloto.numero}</strong>`;
 
-    //Cria o <span> dos pontos do piloto
-    const pilotoPontos = document.createElement("span");
-    pilotoPontos.innerHTML = `<strong>${piloto.pontuacao != null ? piloto.pontuacao : 0}</strong> points`;
+        //Cria o <span> dos pontos do piloto
+        const pilotoPontos = document.createElement("span");
+        pilotoPontos.innerHTML = `<strong>${piloto.pontuacao != null ? piloto.pontuacao : 0}</strong> points`;
 
-    //Cria a <img> da bandeira
-    const logo = document.createElement("img");
-    const bandeira = document.createElement("img");
-    bandeira.src = `https://flagsapi.com/${piloto.nacionalidade}/flat/64.png`;
-    bandeira.classList.add("bandeira");
+        //Cria a <img> da bandeira
+        const logo = document.createElement("img");
+        const bandeira = document.createElement("img");
+        bandeira.src = `https://flagsapi.com/${piloto.nacionalidade}/flat/64.png`;
+        bandeira.classList.add("bandeira");
 
-    //Aplica tudo na ordem correta
-    driversOl.appendChild(itemD);
-    itemD.appendChild(divisao);
-    divisao.appendChild(logo);
-    divisao.appendChild(pilotoNome);
-    pilotoNome.appendChild(bandeira);
-    itemD.appendChild(pilotoPontos);
+        //Aplica tudo na ordem correta
+        driversOl.appendChild(itemD);
+        itemD.appendChild(divisao);
+        divisao.appendChild(logo);
+        divisao.appendChild(pilotoNome);
+        pilotoNome.appendChild(bandeira);
+        itemD.appendChild(pilotoPontos);
 
-    let equipePiloto;
-    equipesF1.forEach((equipe) => {
-        if (piloto.nome == equipe.pilotos[0].nome || piloto.nome == equipe.pilotos[1].nome) {
-            equipePiloto = equipe.nome;
+        let equipePiloto;
+        equipesF1.forEach((equipe) => {
+            if (piloto.nome == equipe.pilotos[0].nome || piloto.nome == equipe.pilotos[1].nome) {
+                equipePiloto = equipe.nome;
+            }
+        });
+
+        switch (equipePiloto) {
+            case "McLaren":
+                itemD.classList.add("mclaren");
+                logo.src = `assets/images/logo-equipes/mclaren-512.png`;
+                break;
+            case "Ferrari":
+                itemD.classList.add("ferrari");
+                logo.src = `assets/images/logo-equipes/ferrari-512.png`;
+                break;
+            case "Mercedes":
+                itemD.classList.add("mercedes");
+                logo.src = `assets/images/logo-equipes/mercedes-512.png`;
+                break;
+            case "Red Bull Racing":
+                itemD.classList.add("red-bull");
+                logo.src = `assets/images/logo-equipes/red-bull-512.png`;
+                break;
+            case "Williams Racing":
+                itemD.classList.add("williams");
+                logo.src = `assets/images/logo-equipes/williams-512.png`;
+                break;
+            case "Aston Martin":
+                itemD.classList.add("aston-martin");
+                logo.src = `assets/images/logo-equipes/aston-martin-512.png`;
+                break;
+            case "Alpine":
+                itemD.classList.add("alpine");
+                logo.src = `assets/images/logo-equipes/alpine-512.png`;
+                break;
+            case "Haas":
+                itemD.classList.add("haas");
+                logo.src = `assets/images/logo-equipes/haas-512.png`;
+                break;
+            case "Sauber":
+                itemD.classList.add("sauber");
+                logo.src = `assets/images/logo-equipes/sauber-512.png`;
+                break;
+            case "Racing Bulls":
+                itemD.classList.add("racing-bulls");
+                logo.src = `assets/images/logo-equipes/racing-bulls-512.png`;
+                break;
         }
-    });
-
-    switch (equipePiloto) {
-        case "McLaren":
-            itemD.classList.add("mclaren");
-            logo.src = `assets/images/logo-equipes/mclaren-512.png`;
-            break;
-        case "Ferrari":
-            itemD.classList.add("ferrari");
-            logo.src = `assets/images/logo-equipes/ferrari-512.png`;
-            break;
-        case "Mercedes":
-            itemD.classList.add("mercedes");
-            logo.src = `assets/images/logo-equipes/mercedes-512.png`;
-            break;
-        case "Red Bull Racing":
-            itemD.classList.add("red-bull");
-            logo.src = `assets/images/logo-equipes/red-bull-512.png`;
-            break;
-        case "Williams Racing":
-            itemD.classList.add("williams");
-            logo.src = `assets/images/logo-equipes/williams-512.png`;
-            break;
-        case "Aston Martin":
-            itemD.classList.add("aston-martin");
-            logo.src = `assets/images/logo-equipes/aston-martin-512.png`;
-            break;
-        case "Alpine":
-            itemD.classList.add("alpine");
-            logo.src = `assets/images/logo-equipes/alpine-512.png`;
-            break;
-        case "Haas":
-            itemD.classList.add("haas");
-            logo.src = `assets/images/logo-equipes/haas-512.png`;
-            break;
-        case "Sauber":
-            itemD.classList.add("sauber");
-            logo.src = `assets/images/logo-equipes/sauber-512.png`;
-            break;
-        case "Racing Bulls":
-            itemD.classList.add("racing-bulls");
-            logo.src = `assets/images/logo-equipes/racing-bulls-512.png`;
-            break;
     }
 });
