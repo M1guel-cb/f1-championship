@@ -26,10 +26,11 @@ var clickedT = true;
 
 pistasF1.forEach((pista) => {
     let nome = "";
+    let nomeS = "";
     for (let i = 3; i < pista.gp.length; i++) {
-        nome = nome + pista.gp[i];
+        nomeS = nomeS + pista.gp[i];
     }
-    nome = nome.toLowerCase().replace(" ", "-");
+    nome = nomeS.toLowerCase().replace(" ", "-");
 
     const container = document.createElement("div");
     container.classList.add("container");
@@ -58,6 +59,10 @@ pistasF1.forEach((pista) => {
     const bandeira = document.createElement("img");
     bandeira.src = `https://flagsapi.com/${pista.pais}/flat/64.png`;
 
+    const diaPista = `${pista.data[pista.data.length - 5]}${pista.data[pista.data.length - 4]}`;
+    const mesPista = `${pista.data[pista.data.length - 2]}${pista.data[pista.data.length - 1]}`;
+    const data = new Date();
+
     grid.appendChild(auxiliar);
     auxiliar.appendChild(container);
     container.appendChild(pistaDiv);
@@ -74,6 +79,13 @@ pistasF1.forEach((pista) => {
         pistaDiv.appendChild(sprint);
     }
 
+    if (mesPista < data.getMonth() + 1 || (mesPista == data.getMonth() + 1 && diaPista < data.getDate())) {
+        const check = document.createElement("i");
+        check.classList.add("fa-regular");
+        check.classList.add("fa-circle-check");
+        dataPista.appendChild(check);
+    }
+
     if (grid.classList.contains("admin")) {
         let pais;
         const labelGP = document.createElement("label");
@@ -83,7 +95,7 @@ pistasF1.forEach((pista) => {
         const inputGP = document.createElement("input");
         inputGP.classList.add(`input-gp`);
         inputGP.id = `input-gp-${nome}`;
-        inputGP.value = nome;
+        inputGP.value = nomeS;
 
         const labelPais = document.createElement("label");
         labelPais.innerText = "País: ";
@@ -107,21 +119,74 @@ pistasF1.forEach((pista) => {
         const labelSprint = document.createElement("label");
         labelSprint.innerText = "Sprint: ";
         labelSprint.htmlFor = `btn-sprint-${nome}`;
-
         const btnSprint = document.createElement("button");
         btnSprint.classList.add(`btn-sprint`);
         btnSprint.id = `btn-sprint-${nome}`;
         const slcSprint = document.createElement("div");
+        if (pista.sprint) {
+            btnSprint.classList.add("on");
+        }
+
+        const labelDate = document.createElement("label");
+        labelDate.innerText = "Dia: ";
+        labelDate.htmlFor = `select-date-${nome}`;
+        const selectDate = document.createElement("select");
+        selectDate.classList.add(`select-date`);
+        selectDate.id = `select-date-${nome}`;
+        for (let c = 1; c <= 31; c++) {
+            const option = document.createElement("option");
+            option.value = c;
+            option.innerHTML = c;
+            selectDate.appendChild(option);
+        }
+        if (pista.data[pista.data.length - 5] == 0) {
+            selectDate.value = pista.data[pista.data.length - 4];
+        } else {
+            selectDate.value = pista.data[pista.data.length - 5] + pista.data[pista.data.length - 4];
+        }
+
+        const labelMonth = document.createElement("label");
+        labelMonth.innerText = "Mês: ";
+        labelDate.htmlFor = `select-mes-${nome}`;
+        const selectMonth = document.createElement("select");
+        selectMonth.classList.add(`select-mes`);
+        selectMonth.id = `select-mes-${nome}`;
+        for (let c = 1; c <= 12; c++) {
+            const option = document.createElement("option");
+            option.value = c;
+            option.innerHTML = c;
+            selectMonth.appendChild(option);
+        }
+        if (pista.data[pista.data.length - 2] == 0) {
+            selectMonth.value = pista.data[pista.data.length - 1];
+        } else {
+            selectMonth.value = pista.data[pista.data.length - 2] + pista.data[pista.data.length - 1];
+        }
 
         auxiliar.appendChild(labelGP);
         auxiliar.appendChild(inputGP);
+
         auxiliar.appendChild(labelPais);
         auxiliar.appendChild(selectPais);
+
         auxiliar.appendChild(labelSprint);
         auxiliar.appendChild(btnSprint);
-        btnSprint.appendChild(slcSprint)
+        btnSprint.appendChild(slcSprint);
+
+        auxiliar.appendChild(labelDate);
+        auxiliar.appendChild(selectDate);
+
+        auxiliar.appendChild(labelMonth);
+        auxiliar.appendChild(selectMonth);
     }
 });
+
+if (grid.classList.contains("admin")) {
+    const inputSubmit = document.createElement("input");
+    inputSubmit.type = "submit";
+    inputSubmit.value = "Enviar";
+    tracksSec.appendChild(inputSubmit);
+}
 
 f1Title.addEventListener("mousedown", () => {
     clickedP = false;
@@ -220,7 +285,7 @@ equipesF1.forEach((equipe) => {
         //Cria o <span> dos pontos do equipe
         const equipePontos = document.createElement("span");
         equipePontos.innerHTML = `<strong>${
-            equipe.pontuacao_equipe != null ? equipe.pontuacao_equipe : 0
+            equipe.pilotos[0].pontuacao + equipe.pilotos[1].pontuacao
         }</strong> points`;
 
         //Cria a <img> da bandeira
@@ -334,9 +399,11 @@ listaPilotos.forEach((piloto) => {
 
         let equipePiloto;
         equipesF1.forEach((equipe) => {
-            if (piloto.nome == equipe.pilotos[0].nome || piloto.nome == equipe.pilotos[1].nome) {
-                equipePiloto = equipe.nome;
-            }
+            equipe.pilotos.forEach((p) => {
+                if (piloto.nome == p.nome) {
+                    equipePiloto = equipe.nome;
+                }
+            });
         });
 
         switch (equipePiloto) {

@@ -11,7 +11,7 @@ html,
 body {
     min-height: 100vh;
     width: 100%;
-    font-family: "formula1";
+    font-family: "formula1", sans-serif;
     background-color: #060709;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@ span > span.f1-title {
 }
 
 header {
-    font-family: "formula1";
+    font-family: "formula1", sans-serif;
     width: 100%;
     background-color: rgb(13, 16, 23);
     color: rgb(231, 231, 231);
@@ -122,16 +122,20 @@ main {
         display: flex;
         flex-direction: column;
         gap: 20px;
-        background-color: #3d3d3d;
+        background-color: #282a2e;
     }
 
     .drivers,
     .constructors,
     .tracks {
         display: none;
+        padding: 40px 20px;
         h2 {
             color: rgb(231, 231, 231);
             font-size: 1.7em;
+            padding-bottom: 20px;
+            margin-bottom: 7px;
+            border-bottom: 1.5px solid #cdc6c8;
         }
     }
 
@@ -150,6 +154,9 @@ main {
 
             width: 650px;
             li {
+                box-shadow: inset -0px -6px 10px -4px rgba(0, 0, 0, 0.7),
+                    inset -0px 6px 15px -4px rgba(255, 255, 255, 0.25);
+
                 min-height: 32px;
                 padding: 5px 20px;
 
@@ -249,61 +256,77 @@ main {
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            .container {
-                counter-increment: pista;
-                background-color: #090e17;
-                color: #fff;
-                padding: 8px;
-                border-radius: 12px;
-                border: 6px solid #fff;
-                width: 285px;
-                height: 275px;
-                .pista {
-                    position: relative;
-                    border-radius: 7px 7px 0 0;
-                    background-color: #0a1c40;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    img.pista-img {
-                        width: 80%;
-                    }
-                    img.sprint {
-                        position: absolute;
-                        top: 2%;
-                        left: 2%;
-                        height: 28px;
-                    }
-                }
-                .info {
-                    span {
+            .auxiliar {
+                width: calc(100% / 5 - 20px);
+                height: 280px;
+
+                .container {
+                    counter-increment: pista;
+                    background-color: #090e17;
+                    color: #fff;
+                    padding: 8px;
+                    border-radius: 12px;
+                    border: 6px solid #fff;
+                    height: 100%;
+                    .pista {
+                        position: relative;
+                        border-radius: 7px 7px 0 0;
+                        background-color: #0a1c40;
                         display: flex;
                         align-items: center;
-                        gap: 5px;
-                        height: 36px;
-                        img {
+                        justify-content: center;
+                        img.pista-img {
+                            width: 80%;
+                        }
+                        img.sprint {
+                            position: absolute;
+                            top: 2%;
+                            left: 2%;
                             height: 28px;
                         }
                     }
-                    span.nome-pista {
-                        padding: 27.5px 0 20px 0;
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    span.nome-pista::before {
-                        display: flex;
-                        content: counter(pista) "º";
-                        background-color: #e4051a;
-                        width: 36px;
-                        height: 36px;
-                        justify-content: center;
-                        align-items: center;
+                    .info {
+                        span {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            height: 36px;
+                            img {
+                                height: 28px;
+                            }
+                        }
+                        span.nome-pista {
+                            padding: 27.5px 0 20px 0;
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        span.nome-pista::before {
+                            display: flex;
+                            content: counter(pista) "º";
+                            background-color: #e4051a;
+                            width: 36px;
+                            height: 36px;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        .data-pista {
+                            i {
+                                color: rgb(24, 255, 70);
+                            }
+                        }
                     }
                 }
             }
         }
         .grid.admin {
             flex-direction: column;
+            .auxiliar {
+                width: 100%;
+                display: flex;
+                .container {
+                    width: 300px;
+                }
+            }
         }
     }
 }
@@ -311,7 +334,7 @@ main {
 footer {
     position: relative;
     font-weight: bold;
-    font-family: "Titillium Web";
+    font-family: "Titillium Web", sans-serif;
     width: 100%;
     background-color: rgb(13, 16, 23);
     color: rgb(231, 231, 231);
