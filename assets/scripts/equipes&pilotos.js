@@ -1,4 +1,4 @@
-export const equipesF1 = [
+const equipesF1 = [
     {
         nome: "McLaren",
         nacionalidade: "GB",
@@ -81,3 +81,5 @@ export const equipesF1 = [
         ],
     },
 ];
+
+module.exports = equipesF1

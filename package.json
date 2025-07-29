@@ -4,7 +4,7 @@
   "description": "Projeto que exibe uma **tabela interativa com equipes e pilotos da Fórmula 1**, utilizando dados em JavaScript com renderização dinâmica no DOM.",
   "main": "servidor.js",
   "scripts": {
-    "start-server": "node servidor.js"
+    "start-server": "nodemon servidor.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   "homepage": "https://github.com/M1guel-cb/f1-championship#readme",
   "dependencies": {
     "express": "^5.1.0",
+    "mongo": "^0.1.0",
+    "mongodb": "^6.18.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

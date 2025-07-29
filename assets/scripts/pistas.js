@@ -1,4 +1,4 @@
-export const pistasF1 = [
+const pistasF1 = [
     {
         gp: "de Melbourn",
         data: "14 - 16/03",
@@ -144,3 +144,5 @@ export const pistasF1 = [
         sprint: false,
     },
 ];
+
+module.exports = pistasF1
