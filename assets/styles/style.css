@@ -145,7 +145,6 @@ main {
             list-style-type: none;
             counter-reset: counter1;
         }
-
         ol {
             display: flex;
             flex-direction: column;
