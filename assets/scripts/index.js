@@ -1,6 +1,6 @@
 import { equipesF1 } from "./equipes&pilotos.js";
 import { pistasF1 } from "./pistas.js";
-import { paises } from "./paises.js";
+import { paises } from "./paises.js"; 
 
 const f1Title = document.querySelector("header > h1");
 const tracksSec = document.querySelector("section.tracks");

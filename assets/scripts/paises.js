@@ -1,4 +1,4 @@
-const paises = [
+export const paises = [
     { nome: "Afeganistão", sigla: "AF" },
     { nome: "África do Sul", sigla: "ZA" },
     { nome: "Albânia", sigla: "AL" },
@@ -194,5 +194,3 @@ const paises = [
     { nome: "Zâmbia", sigla: "ZM" },
     { nome: "Zimbábue", sigla: "ZW" },
 ];
-
-module.exports = paises
