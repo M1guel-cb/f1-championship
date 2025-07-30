@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="assets/styles/style.css" />
+        <link rel="stylesheet" href="assets/styles/mq.css" />
+        <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+        <style>
+            @font-face {
+                font-family: "formula1";
+                src: url("./assets/fonts/Formula1/Formula1-Regular_web_0.ttf") format("TrueType");
+                font-weight: normal;
+            }
+
+            @font-face {
+                font-family: "formula1";
+                src: url("./assets/fonts/Formula1/Formula1-Bold_web_0.ttf") format("TrueType");
+                font-weight: bold;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+        <title>F1 Championship</title>
+    </head>
+    <body>
+        <main>
+            <section class="formulario active">
+                <h2 class="title"><img src="assets/images/formula-1-logo-128px.png" alt="logo-F1" />Cadastro</h2>
+                <form action="" method="post" autocomplete="off">
+                    <div class="input nome">
+                        <label for="inome">Nome: </label>
+                        <input type="nome" name="nome" id="inome" placeholder="Digite seu nome" class="" />
+                        <small class="nome-msg">Email inválido</small>
+                    </div>
+                    <div class="input email">
+                        <label for="iemail">Email: </label>
+                        <input type="email" name="email" id="iemail" placeholder="Digite seu email" class="" />
+                        <small class="email-msg">Email inválido</small>
+                    </div>
+                    <div class="input senha">
+                        <label for="isenha">Senha: </label>
+                        <div class="aux-input">
+                            <input type="password" name="senha" id="isenha" placeholder="••••••••" />
+                            <i class="fa-solid fa-eye"></i>
+                            <i class="fa-solid fa-eye-slash active"></i>
+                        </div>
+                        <small class="senha-msg"></small>
+                    </div>
+                    <div class="input confirmacao">
+                        <label for="iconfirmacao-senha">Confirmação de senha: </label>
+                        <div class="aux-input">
+                            <input
+                                type="password"
+                                name="confirmacao-senha"
+                                id="iconfirmacao-senha"
+                                placeholder="••••••••" />
+                            <i class="fa-solid fa-eye"></i>
+                            <i class="fa-solid fa-eye-slash active"></i>
+                        </div>
+                        <small class="confirmacao-senha-msg"></small>
+                    </div>
+                    <span class="log active">Já possui uma conta? Faça seu login!</span>
+                    <span class="cad">Não possui conta? Crie sua conta!</span>
+                    <button type="submit" class="btn">Criar conta</button>
+                </form>
+            </section>
+        </main>
+    </body>
+    <script type="module" src="assets/scripts/form.js"></script>
+</html>
